@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/front/css/module-details.css') }}" />
+{%  endblock %}
+
+{% block mainContent %}
+    {% set mod = module %}
+
+    <h1 id="pageTitle">Détails du module</h1>
+
+    {% if mod.pathImage != null and not mod.pathImage is empty %}
+        <img class="modImg" src="{{ mod.pathImage }}">
+    {% else %}
+        <i class="fa fa-cogs defaultImg"></i>
+    {% endif %}
+
+
+    <div class="container modDetails">
+        <div class="row">
+            <div class="col-sm-3">
+                Nom:
+            </div>
+            <div class="col-sm-4 value">
+                {{ mod.name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                Développeur:
+            </div>
+            <div class="col-sm-4 value">
+                {{ mod.developperName }}
+            </div>
+        </div>
+        {#<div class="row">#}
+            {#<div class="col-sm-3">#}
+                {#Description:#}
+            {#</div>#}
+            {#<div class="col-sm-4 value">#}
+                {#{{ mod.description }}#}
+            {#</div>#}
+        {#</div>#}
+        <div class="row">
+            <div class="col-sm-3">
+                Date d'ajout:
+            </div>
+            <div class="col-sm-4 value">
+                {{ mod.addedAt | date("d/m/Y") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                Dernière MàJ:
+            </div>
+            <div class="col-sm-4 value">
+                {{ mod.updatedAt | date("d/m/Y") }}
+            </div>
+        </div>
+
+        {% if moduleInstalled != true %}
+            <a href="{{ path('module_add', {id:mod.id}) }}" class="btn btn-primary" style="margin-top: 20px"><i class="fa fa-plus-circle"  aria-hidden="true"></i> Installer</a>
+        {% endif %}
+        <a href="{{ path('module_index') }}" class="btn btn-success" style="margin-top: 20px"><i class="fa fa-arrow-circle-left"  aria-hidden="true"></i> Retour</a>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/front/js/utils.js') }}"></script>
+    <script>
+        var setFaCheckboxIcon = function()
+        {
+            var baseClass = "moduleActif fa",
+                    checkedClass = " fa-check-square-o",
+                    uncheckedClass = " fa-square-o";
+
+            $("i.moduleActif").each(function()
+            {
+                var item = $(this),
+                        parent = item.parent(),
+                        hiddenVal = parent.find("input").val(),
+                        applyClasses = baseClass;
+
+                if(hiddenVal === "1")
+                    applyClasses += checkedClass;
+                else
+                    applyClasses += uncheckedClass;
+
+                item.attr("class", applyClasses)
+
+                console.log(applyClasses);
+            });
+        };
+
+        $(document).ready(function()
+        {
+            setFaCheckboxIcon();
+        });
+    </script>
+{% endblock %}

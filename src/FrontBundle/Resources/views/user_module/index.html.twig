@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+    {% for userModule in  userModules %}
+        {{ dump(userModule) }}
+    {% endfor %}
+{% endblock %}

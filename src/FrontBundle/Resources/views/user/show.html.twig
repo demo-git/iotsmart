@@ -1,0 +1,90 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block mainContent %}#}
+    {#<h1>User</h1>#}
+
+    {#<table>#}
+        {#<tbody>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<td>{{ user.id }}</td>#}
+            {#</tr>#}
+        {#</tbody>#}
+    {#</table>#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('admin_user_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#<a href="{{ path('admin_user_edit', { 'id': user.id }) }}">Edit</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
+{#{% endblock %}#}
+
+{% extends 'base.html.twig' %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/front/css/object-details.css') }}" />
+{%  endblock %}
+
+{% block mainContent %}
+    <h1 id="pageTitle">Détails d'un utilisateur</h1>
+
+    {#{% set joint = User %}#}
+    {#{% set object = userObject.connectedObject %}#}
+    {#{% set modules = userModuleObjects %}#}
+
+
+    {% if user != null %}
+        {#{% if object.pathImage != null and not object.pathImage is empty %}#}
+            {#<img class="appImg" src="object.pathImage">#}
+        {#{% else %}#}
+            {#<i class="fa fa-cogs defaultImg"></i>#}
+        {#{% endif %}#}
+
+        <div class="container appDetails">
+            <div class="row">
+                <div class="col-sm-3">
+                    Email:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ user.Email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Nom d'utilisateur:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ user.userName }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Nom:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ user.lastName }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Prénom:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ user.firstName }}
+                </div>
+            </div>
+
+        </div>
+        <a href="{{ path('admin_user_index') }}" class="btn btn-success" style="margin-top: 20px"><i class="fa fa-arrow-circle-left"  aria-hidden="true"></i> Retour</a>
+        <a href="{{ path('admin_user_delete', {id: user.id}) }}" class="btn btn-danger" style="margin-top: 20px"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer l'utilisateur</a>
+    {% endif %}
+
+{% endblock %}

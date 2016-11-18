@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+    {% for connected_object in  connected_objects %}
+        {{ dump(connected_object) }}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block mainContent %}
+
+
+
+
+<div class="contentSign">
+    <img class="logoImg" src="{{ asset('bundles/front/css/logo.png') }}"/>
+    <div class="labelForm">Connectez- vous à la plateforme IOTSmart</div>
+    <div class="labelDetail">Entrez votre <strong>adresse email</strong> et <strong>votre mot de passe</strong>.</div>
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <fieldsetset>
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% endif %}
+            <div class="form-group">
+                <input class="form-control" placeholder="{{ 'security.login.username'|trans }}" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="{{ 'security.login.password'|trans }}" type="password" id="password" name="_password" required="required" />
+            </div>
+            <input class="btn btn-lg btn-success btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <a class="btn btn-lg btn-danger btn-block" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+            <div class="checkbox" style="text-align: center">
+                <label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
+                </label>
+            </div>
+        </fieldsetset>
+    </form>
+</div>
+
+{% endblock %}
+
+

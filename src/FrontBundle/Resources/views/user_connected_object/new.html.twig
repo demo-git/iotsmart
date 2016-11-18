@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig'%}
+
+{% block stylesheets %}
+    <style>
+        #formObject {
+            width: 23%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        #btn {
+            margin-top: 45px;
+        }
+        #btn > a {
+            margin-right: 15px;;
+        }
+</style>
+{% endblock %}
+
+
+{% block mainContent %}
+    <h1>Ajout d'un nouvel Objet</h1>
+<div id="formObject">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <div id="btn">
+    <a href="{{ path('user_connected_object_index') }}" class="btn btn-success"><i class="fa fa-arrow-circle-left"  aria-hidden="true"></i> Retour </a><input class="btn btn-primary" type="submit" value="Créer" />
+    </div>
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}

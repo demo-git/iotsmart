@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    mongodb_server: 'mongodb://54.172.146.163:27017'
+    mongodb_database: iotsmart_dev
+    mongodb_username: iotsmart
+    mongodb_passwd: iotsmart
+    database_host: 54.172.146.163
+    database_port: null
+    database_name: iotsmart_dev
+    database_user: iotsmart
+    database_password: iotsmart
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: TheSecretTokenOfIotSmart

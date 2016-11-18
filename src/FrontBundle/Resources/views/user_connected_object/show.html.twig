@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/front/css/object-details.css') }}" />
+{%  endblock %}
+
+{% block mainContent %}
+    <h1 id="pageTitle">Détails de l'appareil</h1>
+
+    {% set joint = userObject %}
+    {% set object = userObject.connectedObject %}
+    {% set modules = userModuleObjects %}
+
+
+    {% if object != null %}
+        {% if object.pathImage != null and not object.pathImage is empty %}
+            <img class="appImg" src="object.pathImage">
+        {% else %}
+            <i class="fa fa-cogs defaultImg"></i>
+        {% endif %}
+
+        <div class="container appDetails">
+            <div class="row">
+                <div class="col-sm-3">
+                    Nom:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ object.name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Marque:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ object.brand }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Description:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ object.description }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    Date d'ajout:
+                </div>
+                <div class="col-sm-5 value">
+                    {{ object.createdAt | date("d/m/Y") }}
+                </div>
+            </div>
+            <div class="moduleWrapper">
+                <div class="title">
+                    Modules ajoutés:
+                </div>
+                <div>
+                    {% if modules == null or modules is empty %}
+                        <div>Aucun module.</div>
+                    {% else %}
+                        <table class="table table-striped">
+                            <tr>
+                                <th id="columnNom">Nom</th>
+                                <th id="columnDateAjout">Date d'ajout</th>
+                                {#<th id="columnDataUrl">Data url</th>#}
+                                <th id="columnActions">Actions</th>
+                            </tr>
+
+                            {% for module in modules %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('module_show', {id: module.id}) }}">{{ module.name }}</a>
+                                    </td>
+                                    <td>{{ module.addedAt | date("d/m/Y") }}</td>
+                                    {#<td>{{ module.enterUrl }}</td>#}
+                                    <td>
+                                        <i class="removeModule fa fa-trash" aria-hidden="true" style="color: red; margin-right: 5px;"></i>
+                                        <i class="editModule fa fa-pencil" aria-hidden="true" style="color: blue"></i>
+                                        <i class="dataUrlModule fa fa-bar-chart" aria-hidden="true" style="color: green"></i>
+                                        <input class="id" type="hidden" value="{{ module.id }}">
+                                        <input class="dataUrl" type="hidden" value="{{ module.enterUrl }}">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td> <a href="{{ path('module_index') }}?objectName={{ object.name }}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> </td>
+                            </tr>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <a href="{{ path('user_connected_object_index') }}" class="btn btn-success" style="margin-top: 20px"><i class="fa fa-arrow-circle-left"  aria-hidden="true"></i> Retour</a>
+        <a href="{{ path('user_connected_object_delete', {id: object.id}) }}" class="btn btn-danger" style="margin-top: 20px"><i class="fa fa-trash" aria-hidden="true"></i> Retirer l'appareil</a>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmRemoveModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer cet élément de vos modules?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/front/js/utils.js') }}"></script>
+    <script>
+        var addModule = function()
+        {
+            alert("TODO: add module to object");
+        }
+
+        $(document).ready(function()
+        {
+            setFaCheckboxIcon();
+            var url = '';
+
+            $(".removeModule").click(function()
+            {
+                var clickedItem = $(this),
+                        parent = clickedItem.parent(),
+                        id = parent.children("input.id").val();
+
+//                url = (window['baseUrl'] + "/user/module/{id}/delete").replace("{id}", id);
+                url = (window['baseUrl'] + "/user/module/" + id + "/delete");
+
+                console.log("delete user's module: " + url);
+                showModal("confirmRemoveModal");
+            });
+
+            $(".dataUrlModule").click(function()
+            {
+                var clickedItem = $(this),
+                        parent = clickedItem.parent(),
+                        routeUrl = parent.children("input.dataUrl").val(),
+                        tokenPart = "{{ userObject.tokenData }}",
+                        moduleType = parent.parent().children("td:first-child").text().trim().toLowerCase();
+
+                url = (window['baseUrl'] + "/import/module/" + moduleType + '/' + tokenPart);
+
+                console.log("data url: " + url);
+
+                window.open(url);
+            });
+
+            $("#confirmRemoveModal").click(function()
+            {
+                if(url == undefined || url.length === 0)
+                    return;
+
+                window.location.href = url;
+            });
+        });
+    </script>
+{% endblock %}

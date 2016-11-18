@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
+
+    <h1>Listes des utilisateurs</h1>
+
+
+<table class="table table-striped" style="margin-top: 40px">
+    <tr>
+        <th>Nom-Prenom</th>
+        <th>Adresse Email</th>
+        <th>Dernière connexion</th>
+        <th>Action</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>  <a href="{{ path('admin_user_show', { 'id': user.id }) }}">{{ user.lastName}} {{ user.firstName }}</a>
+        </td>
+        <td>{{ user.emailCanonical}}</td>
+        {% if user.lastLogin != null %}
+            <td>Le {{ user.lastLogin.date | date("d/m/Y") }} à {{ user.lastLogin.date |date('H')}}h{{ user.lastLogin.date |date('i')}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+        <td>
+           <a href="{{ path('admin_user_edit', { 'id': user.id }) }}"><i class="editModule fa fa-pencil" aria-hidden="true" style="color: blue"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td> <a href="{{ path('admin_user_new') }}"> <i class="fa fa-plus-circle" aria-hidden="true" style="color:green"></i> </a></td>
+    </tr>
+</table>
+
+{% endblock %}

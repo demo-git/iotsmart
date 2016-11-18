@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/front/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/front/css/bootstrap-theme.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/front/css/font-awesome.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/front/css/sidenav.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/front/css/styles.css') }}" />
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=1" />
+    </head>
+    <body>
+        <div id="content" class="content clearfix">
+
+            <div>
+                {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                    {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+                    {#<a href="{{ path('fos_user_security_logout') }}">#}
+                        {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+                    {#</a>#}
+                {#{% else %}#}
+                    {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+                {#{% endif %}#}
+
+                <ul class="nav nav-pills">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.request.attributes.get('_route') != 'fos_user_registration_register' %}
+                    <li role="presentation"><a href="{{ path('fos_user_profile_show') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
+                    <li role="presentation" class="active"><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% else %}
+                    {#<li role="presentation" class="active"><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>#}
+                    {% endif %}
+                </ul>
+            </div>
+
+
+
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            <div>
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+
+
+            {% if (app.request.attributes.get('_route') != 'fos_user_security_login') and (app.request.attributes.get('_route') != 'fos_user_registration_register') %}
+                {% include 'navigation.html.twig' %}
+            {% endif %}
+
+
+
+
+
+            <div class="mainContent">
+                {% block mainContent %}
+                {% endblock %}
+            </div>
+
+
+
+
+
+        </div>
+        <script src="{{ asset('bundles/front/js/jquery-3.1.1.min.js') }}"></script>
+        <script src="{{ asset('bundles/front/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        <script type="text/javascript">
+            var sidenavWidth = "250px",
+                    moduleRoute = "{{ path('module_index') }}";
+
+            window['baseUrl'] = window.location.origin + moduleRoute.split("/module")[0]
+
+            /* Set the width of the side navigation to 250px */
+            function openNav() {
+                $("#mySidenav").css("width", sidenavWidth);
+                $("#content").css("margin-left", sidenavWidth);
+                $("#openNav").addClass("nodisplay");
+            }
+
+            /* Set the width of the side navigation to 0 */
+            function closeNav() {
+                $("#mySidenav").css("width", 0);
+                $("#content").css("margin-left", 0);
+                $("#openNav").removeClass("nodisplay");
+            }
+
+            function showModal(modalId)
+            {
+                var id = modalId[0] == "#"
+                    ? modalId
+                    : "#" + modalId
+
+                $(id).removeClass("fade");
+                $(id).show();
+            }
+
+            function closeModal(modalId)
+            {
+                var id = modalId[0] == "#"
+                        ? modalId
+                        : "#" + modalId
+
+                $(id).addClass("fade");
+                $(id).hide();
+            }
+        </script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

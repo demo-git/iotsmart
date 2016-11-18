@@ -1,0 +1,118 @@
+<?php
+
+namespace FrontBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserObject", mappedBy="object")
+     */
+    protected $objects;
+
+    /**
+     *  @ORM\Column(type="string")
+     */
+    protected $nom;
+
+    /**
+     *  @ORM\Column(type="string")
+     */
+    protected $prenom;
+
+    /**
+     *  @ORM\Column(type="string")
+     */
+    protected $pathImage;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="FrontBundle\Entity\Module", cascade={"persist"}, mappedBy="users")
+     */
+    protected $modules;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->modules = new ArrayCollection();
+    }
+
+    /**
+     * Add module
+     *
+     * @param \FrontBundle\Entity\Module $module
+     *
+     * @return User
+     */
+    public function addModule(\FrontBundle\Entity\Module $module)
+    {
+        $this->modules[] = $module;
+
+        return $this;
+    }
+
+    /**
+     * Remove module
+     *
+     * @param \FrontBundle\Entity\Module $module
+     */
+    public function removeModule(\FrontBundle\Entity\Module $module)
+    {
+        $this->modules->removeElement($module);
+    }
+
+    /**
+     * Get modules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModules()
+    {
+        return $this->modules;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjects()
+    {
+        return $this->objects;
+    }
+
+    /**
+     * @param mixed $objects
+     */
+    public function setObjects($objects)
+    {
+        $this->objects = $objects;
+    }
+}

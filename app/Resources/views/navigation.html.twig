@@ -1,0 +1,40 @@
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <img class="logoImg" src="{{ asset('bundles/front/css/logo.png') }}"/>
+
+
+    {% if app.user == null %}
+        {% set objects =  null %}
+    {% else %}
+        {% set objects = app.user.userConnectedObjects %}
+    {% endif %}
+
+
+    <a href="{{ path('fos_user_profile_show') }}">Mon profil</a>
+    <ul>
+        <a href="{{ path('user_connected_object_index') }}">Mes appareils</a>
+        {% if objects != null %}
+            {% for obj in objects %}
+                <li><a href="{{ path('user_connected_object_show', { id : obj.connectedObject.id }) }}">{{ obj.connectedObject.name }}</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <br>
+    <a href="{{ path('module_index') }}">Modules</a>
+    <br>
+
+    {% if app.user.username == 'admin' %}
+    {#{% if is_granted('ROLE_ADMIN') %}#}
+        <ul>
+            {#<a href="{{ path('user_connected_object_index') }}">Administration</a>#}
+            <a href="#">Administration</a>
+                {#<li><a href="{{ path('user_connected_object_show', { id : obj.connectedObject.id }) }}">{{ obj.connectedObject.name }}</a></li>#}
+                {#<li><a href="{{ path('admin_user_index') }}">Liste des utilisateurs</a></li>#}
+        </ul>
+    {% endif %}
+
+</div>
+
+{#<span onclick="openNav()">open</span>#}
+<i id="openNav" class="fa fa-bars fa-2x nodisplay" aria-hidden="true" onclick="openNav()"></i>

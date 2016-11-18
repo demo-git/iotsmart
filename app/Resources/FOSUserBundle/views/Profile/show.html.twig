@@ -1,0 +1,49 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block mainContent %}
+
+    <h1 id="pageTitle" style="margin-bottom: 10px">Votre profil</h1>
+
+    <div class="container"  style="margin-left: 0; width: 700px;">
+        <div class="row">
+            <div class="col-sm-3" style="margin-bottom: 5px;">
+                <span class="glyphicon glyphicon-user"></span>
+                {{ 'profile.show.username'|trans }} :
+            </div>
+            <div class="col-sm-3 value">
+                {{ user.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-bottom: 5px;">
+                <span class="glyphicon glyphicon-envelope"></span>
+                {{ 'profile.show.email'|trans }} :
+            </div>
+            <div class="col-sm-3 value">
+                {{ user.email }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-bottom: 5px;">
+                <span class="glyphicon glyphicon-tag"></span>
+                Nom :
+            </div>
+            <div class="col-sm-3 value">
+                {{ user.lastname }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-bottom: 5px;">
+                <span class="glyphicon glyphicon-tag"></span>
+                Prénom :
+            </div>
+            <div class="col-sm-3 value">
+                {{ user.firstname }}
+            </div>
+        </div>
+
+        <a href="{{ path('user_connected_object_index') }}" class="btn btn-success" style="margin-top: 20px"><i class="fa fa-arrow-circle-left"  aria-hidden="true"></i> Retour</a>
+
+    </div>
+
+{% endblock %}

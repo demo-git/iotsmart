@@ -1,0 +1,37 @@
+{% extends "@iotsmartfitbit/layout.html.twig" %}
+{% block mainContent %}
+    <div class="row">
+        <table id="heart" class="table table-striped col-xs-10 col-xs-offset-1" style="margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>
+                        Jours
+                    </th>
+                    <th>
+                        Heures
+                    </th>
+                    <th>
+                        Battements par minute
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in datas %}
+                    {% for heart in data.data["activities-heart-intraday"].dataset %}
+                        <tr>
+                            <td>
+                                {{ data.date|date("d/m/Y") }}
+                            </td>
+                            <td>
+                                {{ heart.time }}
+                            </td>
+                            <td>
+                                {{ heart.value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

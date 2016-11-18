@@ -1,0 +1,243 @@
+<?php
+
+namespace FrontBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="module")
+ */
+class Module
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     *  @ORM\Column(type="string", unique=true)
+     */
+    protected $name;
+
+    /**
+     *  @ORM\Column(type="string", unique=true)
+     */
+    protected $enterUrl;
+
+    /**
+     *  @ORM\Column(type="string")
+     */
+    protected $developperName;
+
+    /**
+     *  @ORM\Column(type="string", nullable=true)
+     */
+    protected $pathImage;
+
+    /**
+     *  @ORM\Column(type="datetime")
+     */
+    protected $addedAt;
+
+    /**
+     *  @ORM\Column(type="datetime")
+     */
+    protected $createdAt;
+
+    /**
+     *  @ORM\Column(type="datetime")
+     */
+    protected $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="FrontBundle\Entity\ConnectedObject")
+     */
+    protected $object;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="FrontBundle\Entity\User", cascade={"persist"}, inversedBy="modules")
+     */
+    protected $users;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDevelopperName()
+    {
+        return $this->developperName;
+    }
+
+    /**
+     * @param mixed $developperName
+     */
+    public function setDevelopperName($developperName)
+    {
+        $this->developperName = $developperName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddedAt()
+    {
+        return $this->addedAt;
+    }
+
+    /**
+     * @param mixed $addedAt
+     */
+    public function setAddedAt($addedAt)
+    {
+        $this->addedAt = $addedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * Set object
+     *
+     * @param \FrontBundle\Entity\Object $object
+     *
+     * @return Module
+     */
+    public function setObject(\FrontBundle\Entity\Object $object = null)
+    {
+        $this->object = $object;
+
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return \FrontBundle\Entity\Object
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \FrontBundle\Entity\User $user
+     *
+     * @return Module
+     */
+    public function addUser(\FrontBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \FrontBundle\Entity\User $user
+     */
+    public function removeUser(\FrontBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+}

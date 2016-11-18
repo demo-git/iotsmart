@@ -1,0 +1,28 @@
+{% extends "@iotsmartHue/layout.html.twig" %}
+{% block mainContent %}
+    <div class="row">
+        <table class="table table-striped col-xs-10">
+            <thead>
+            <tr>
+                <th>
+                    Groupe
+                </th>
+                <th>
+                    Action
+                </th>
+                <th>
+                    Intensité
+                </th>
+            </tr>
+            </thead>
+            <tbody id="rooms"></tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var hueUrl = '{{ url }}';
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/iotsmarthue/js/hue.js') }}"></script>
+{% endblock %}

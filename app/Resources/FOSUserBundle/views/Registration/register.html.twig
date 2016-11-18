@@ -1,0 +1,15 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block mainContent %}
+    <div class="contentSign">
+        <img class="logoImg" src="{{ asset('bundles/front/css/logo.png') }}"/>
+        <div class="labelForm">Enregistrez-vous à la plateforme IOTSmart</div>
+        {% form_theme form 'bootstrap_3_layout.html.twig'%}
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" class="btn btn-primary" value="Créer le compte" />
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock mainContent %}

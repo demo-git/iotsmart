@@ -1,0 +1,26 @@
+.container.modDetails {
+    margin-left: 0;
+    width: 640px;
+}
+
+#pageTitle
+{
+    margin-bottom: 20px;
+}
+
+div.modDetails .row
+{
+    margin-top: 10px;
+    height: 20px;
+}
+
+.defaultImg
+{
+    float: right;
+    margin-right: 150px;
+}
+
+i.defaultImg
+{
+    font-size: 20em;
+}

@@ -1,0 +1,58 @@
+.container.appDetails {
+    margin-left: 0;
+    width: 640px;
+}
+
+#pageTitle
+{
+    margin-bottom: 20px;
+}
+
+.moduleWrapper
+{
+    margin-top: 20px;
+}
+
+.moduleWrapper .title
+{
+    margin-bottom: 10px;
+}
+
+div.appDetails .row
+{
+    margin-top: 10px;
+    height: 20px;
+}
+
+.defaultImg
+{
+    float: right;
+    margin-right: 150px;
+}
+
+i.defaultImg
+{
+    font-size: 20em;
+}
+
+.fa-plus-circle
+{
+    color: green;
+}
+
+/*   TABLE   */
+.moduleWrapper table
+{
+    width: auto;
+    min-width: 50%;
+}
+#columnDateAjout
+{
+    width: 102px;
+}
+
+#columnActions
+{
+    width: 70px;
+}
+/* END TABLE */

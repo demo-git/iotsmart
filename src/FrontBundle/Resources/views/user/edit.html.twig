@@ -1,0 +1,44 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block mainContent %}#}
+    {#<h1>User edit</h1>#}
+    {#{{ form_start(edit_form) }}#}
+        {#{{ form_widget(edit_form) }}#}
+        {#<input type="submit" value="Edit" />#}
+    {#{{ form_end(edit_form) }}#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('admin_user_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
+{#{% endblock %}#}
+{% extends 'base.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
+{% block stylesheets %}
+<style>
+    #formObject {
+        width: 50%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+</style>
+{% endblock %}
+
+{% block mainContent %}
+    <h1>Modifier un utilisateur</h1>
+    <div id="formObject">
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <a href="{{ path('admin_user_index') }}" class="btn btn-success">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour
+        </a>
+        <input class="btn btn-primary" type="submit" value="Modifier"/>
+        {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

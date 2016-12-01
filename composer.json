@@ -24,7 +24,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "stof/doctrine-extensions-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
-        "fabulator/Fitbit": "dev-master"
+        "demo-git/Fitbit": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

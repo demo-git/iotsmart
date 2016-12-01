@@ -2,7 +2,7 @@
 
 namespace iotsmart\fitbitBundle\Controller;
 
-use Fabulator\FitBit;
+use Fitbit\FitBit;
 use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
